@@ -16,8 +16,6 @@ const feedbackSchema = new mongoose.Schema(
     feedback: {
       type: String,
       required: true,
-      maxLength: [300, "can not have more than 300 characters"],
-      minLength: [50, "Can not have less than 50 characters"],
       trim: true,
     },
   },

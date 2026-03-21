@@ -5,7 +5,7 @@ import { Feedback } from "@/models/Feedback.model";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function processFeedback(formData) {
+export async function processFeedback(prevState,formData) {
   //here extracted all the data from the native formData object
   const name = formData.get("name");
   const points = formData.get("points");
@@ -29,12 +29,11 @@ export async function processFeedback(formData) {
       points: points,
       feedback: feedback,
     });
-    revalidatePath("/dashboard");
-    redirect("/dashboard/success");
     console.log("DB written done");
-    return { error: null, success: "Feedback saved!!" };
   } catch (error) {
     console.error("Error Occured:", error);
-    return { error: "Failed to process feedback", success:null};
+    return { error: "Failed to process feedback", success: null };
   }
+  revalidatePath("/dashboard");
+  redirect("/dashboard/success");
 }
